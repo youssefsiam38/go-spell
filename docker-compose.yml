@@ -1,0 +1,19 @@
+# Use root/example as user/password credentials
+version: '3'    
+services:
+    client:
+        build: ./go-spell-client
+        network_mode: host
+    db:
+        image: mysql
+        container_name: mysql
+        ports:
+            - "3306:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=secret
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - "8080:8080"
+        
