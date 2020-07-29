@@ -28,7 +28,7 @@ go run main.go
 
 Open `http://127.0.0.1:3000` in your browser
 
-> here is a <a href="https://www.postman.com/">postman</a> collection JSON <a href="https://www.postman.com/collections/57515ddaceda8c8ecc31" >file</a> If you want only the API
+> here is a <a href="https://www.postman.com/">postman</a> collection JSON <a href="https://www.postman.com/collections/57515ddaceda8c8ecc31" >file</a> If you want to deal with the API
 
 This project implemented using layered structure that discussed by <a href="https://github.com/katzien">Kat Zien</a> in <a href="https://www.youtube.com/watch?v=oL6JBUk6tj0&t=245s">GopherCon 2018</a>
 
