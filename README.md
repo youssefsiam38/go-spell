@@ -26,7 +26,7 @@ docker-compose up --build
 go run main.go
 ```
 
-Open `http://127.0.0.1:3000` in your browser
+Open `http://localhost` in your browser
 
 > here is a <a href="https://www.postman.com/">postman</a> collection JSON <a href="https://www.postman.com/collections/57515ddaceda8c8ecc31" >file</a> If you want to deal with the API
 

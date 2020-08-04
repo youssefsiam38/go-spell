@@ -23,20 +23,12 @@ func main() {
 	r := gin.Default()
 
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://127.0.0.1:3001", "http://127.0.0.1:3000", "http://localhost:3001", "http://localhost:3000"}, ///// env
+		AllowOrigins:     []string{"http://127.0.0.1:3001", "http://127.0.0.1:3000", "http://localhost:3001", "http://localhost:3000", "http://localhost"}, ///// env
 		AllowMethods:     []string{"POST", "DELETE", "GET", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Authorization", "Content-Type"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
-		// AllowOriginFunc: func(origin string) bool {
-		// 	return origin == "https://github.com"
-		// },
-		// MaxAge: 12 * time.Hour,
 	}))
-
-	// r.NoRoute(func(c *gin.Context) {
-	// 	c.JSON(404, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
-	// })
 
 	//////////////////
 	// user handlers
