@@ -21,11 +21,10 @@ func (c Claims) Valid() error {
 	return nil
 }
 
-
 // GenerateJWT token
 func GenerateJWT(userptr *models.User) *string {
 	user := *userptr
-	claims := Claims {
+	claims := Claims{
 		Username: user.Username,
 		Password: user.Password,
 	}
@@ -38,4 +37,3 @@ func GenerateJWT(userptr *models.User) *string {
 	}
 	return &tokenString
 }
-

@@ -1,30 +1,30 @@
 package db
 
 import (
-	"strings"
-	"strconv"
 	"errors"
 	"fmt"
 	"github.com/youssefsiam38/spell/models"
+	"strconv"
+	"strings"
 )
 
 // InsertUser inserts a user to the database
 func InsertUser(user *models.User) (*models.User, error) {
 	db := Connect()
+	defer db.Close()
+
 	result, err := db.Exec(`
 		insert into users (username, password, bio) 
 		values (?, ?, ?);
 	`, user.Username, user.Password, user.Bio)
 	if err != nil {
 
-		// mysql error status code 
+		// mysql error status code
 		code, _ := strconv.ParseInt(strings.Replace(strings.Fields(err.Error())[1], ":", "", 1), 10, 16)
 
 		if code == 1062 {
 			return nil, errors.New("Username is taken please pick another one")
 		}
-
-		
 
 		return nil, err
 	}
@@ -38,14 +38,16 @@ func InsertUser(user *models.User) (*models.User, error) {
 	if rowsEffected != 1 {
 		return nil, errors.New("Somtheing went wrong with inserting in database")
 	}
-	
+
 	user, _ = SelectUser(&user.Username)
 	return user, nil
 }
+
 // SelectUser gets a user from the database using the username
 func SelectUser(username *string) (*models.User, error) {
 
 	db := Connect()
+	defer db.Close()
 
 	var user models.User
 
@@ -62,13 +64,14 @@ func SelectUser(username *string) (*models.User, error) {
 }
 
 // InsertTweet is a function to insert a tweet to the database
-func InsertTweet(tweet *models.Tweet) (error) {
+func InsertTweet(tweet *models.Tweet) error {
 	db := Connect()
+	defer db.Close()
 
 	_, err := db.Exec(`
 		insert into tweets (body, userID)
 		values (?, ?);
-	`,  tweet.Body, tweet.UserID)
+	`, tweet.Body, tweet.UserID)
 
 	if err != nil {
 		return err
@@ -84,6 +87,7 @@ func InsertTweet(tweet *models.Tweet) (error) {
 // SelectTweet is to select a single tweet from the database
 func SelectTweet(id *uint) (*models.Tweet, error) {
 	db := Connect()
+	defer db.Close()
 
 	var tweet models.Tweet
 
@@ -91,7 +95,6 @@ func SelectTweet(id *uint) (*models.Tweet, error) {
 	select * from tweets where id= ?;
 	`, *id)
 
-	
 	err := row.Scan(&tweet.ID, &tweet.Body, &tweet.UserID, &tweet.CreatedAt)
 	if err != nil || &tweet == nil {
 		return nil, errors.New("tweet not found")
@@ -105,6 +108,7 @@ func SelectTweet(id *uint) (*models.Tweet, error) {
 // SelectTweets get all tweets in the database tweeted by this user
 func SelectTweets(user *models.User) ([]models.Tweet, error) {
 	db := Connect()
+	defer db.Close()
 
 	tweets := []models.Tweet{}
 
@@ -126,12 +130,13 @@ func SelectTweets(user *models.User) ([]models.Tweet, error) {
 		tweets = append(tweets, tweet)
 	}
 
-	return tweets, nil 
+	return tweets, nil
 }
 
 // DeleteTweet sends query to delete specific tweet
 func DeleteTweet(id *uint) error {
 	db := Connect()
+	defer db.Close()
 
 	result, err := db.Exec(`
 	delete from tweets where id= ?;
@@ -140,4 +145,3 @@ func DeleteTweet(id *uint) error {
 	fmt.Println(result.RowsAffected())
 	return err
 }
-

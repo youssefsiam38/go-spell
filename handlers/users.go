@@ -17,7 +17,7 @@ type userWithToken struct {
 func Signup(c *gin.Context) {
 	var user models.User
 	c.BindJSON(&user)
-	
+
 	retrievedUser, err := db.InsertUser(&user)
 
 	if err != nil {
@@ -85,13 +85,13 @@ func GetUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, struct{
+	c.JSON(200, struct {
 		Username string `json:"username"`
-		ID uint `json:"id"`
-		Bio string `json:"bio"`
+		ID       uint   `json:"id"`
+		Bio      string `json:"bio"`
 	}{
 		Username: user.Username,
-		ID: user.ID,
-		Bio: user.Bio,
+		ID:       user.ID,
+		Bio:      user.Bio,
 	})
 }

@@ -1,11 +1,11 @@
 package handlers
 
 import (
-	"github.com/youssefsiam38/spell/utils"
-	"net/http"
 	"github.com/gin-gonic/gin"
 	"github.com/youssefsiam38/spell/db"
 	"github.com/youssefsiam38/spell/models"
+	"github.com/youssefsiam38/spell/utils"
+	"net/http"
 	"strconv"
 )
 

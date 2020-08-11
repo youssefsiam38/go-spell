@@ -5,8 +5,8 @@ A simple <a href="http://twitter.com/">twitter</a> clone implemented using
 * Database: <a href="https://www.mysql.com/" >mysql</a>
 * Frontend: <a href="https://reactjs.org/" >React</a>, <a href="https://material-ui.com/" >MaterialUI</a>
 
-<h1>Performance Benchmarking</h1>
-<img src="./imgs/server-benchmarking.png" style="height: 550px" >
+<h1>Performance Benchmarking (load test)</h1>
+<img src="./imgs/go-wrk_benchmarking.png" style="height: " >
 
 <h2>To setup the project in your machine</h2>
 

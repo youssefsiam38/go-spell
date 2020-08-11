@@ -7,13 +7,16 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"time"
 )
+
 // CreateDBIfNotExists Creates DB If Not Exists :D
 func CreateDBIfNotExists() {
-	db, err := sql.Open("mysql", os.Getenv("MYSQL_USER") + `:` + os.Getenv("MYSQL_PASS") + `@tcp(`+ os.Getenv("MYSQL_HOST") + `:` + os.Getenv("MYSQL_PORT") + `)/`)
+	db, err := sql.Open("mysql", os.Getenv("MYSQL_USER")+`:`+os.Getenv("MYSQL_PASS")+`@tcp(`+os.Getenv("MYSQL_HOST")+`:`+os.Getenv("MYSQL_PORT")+`)/`)
+	defer db.Close()
+
 	if err != nil {
 		panic(err)
 	}
-	_,err = db.Exec("create database if not exists spell")
+	_, err = db.Exec("create database if not exists spell")
 	if err != nil {
 		panic(err)
 	}
@@ -22,23 +25,24 @@ func CreateDBIfNotExists() {
 	createTweetsTable()
 
 }
+
 // Connect to database
 func Connect() *sql.DB {
-	db, err := sql.Open("mysql", os.Getenv("MYSQL_USER") + `:` + os.Getenv("MYSQL_PASS") + `@tcp(`+ os.Getenv("MYSQL_HOST") + `:` + os.Getenv("MYSQL_PORT") + `)/spell`)
+	db, err := sql.Open("mysql", os.Getenv("MYSQL_USER")+`:`+os.Getenv("MYSQL_PASS")+`@tcp(`+os.Getenv("MYSQL_HOST")+`:`+os.Getenv("MYSQL_PORT")+`)/spell`)
 	if err != nil {
 		panic(err)
 	}
-	duration, err := time.ParseDuration("80ms")
+	duration, err := time.ParseDuration("40ms")
 	defer db.SetConnMaxLifetime(duration)
 
 	return db
 }
 
-
 func createUsersTable() error {
 	db := Connect()
+	defer db.Close()
 
-	_ , err := db.Exec(`
+	_, err := db.Exec(`
 		create table if not exists users
 		(username varchar(50) not null UNIQUE ,
 		id int AUTO_INCREMENT UNIQUE not null,
@@ -55,6 +59,8 @@ func createUsersTable() error {
 
 func createTweetsTable() error {
 	db := Connect()
+	defer db.Close()
+
 
 	_, err := db.Exec(`
 		create table if not exists tweets (
