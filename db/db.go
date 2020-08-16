@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-// CreateDBIfNotExists Creates DB If Not Exists :D
+// CreateDBIfNotExists Creates DB If Not Exists
 func CreateDBIfNotExists() {
 	db, err := sql.Open("mysql", os.Getenv("MYSQL_USER")+`:`+os.Getenv("MYSQL_PASS")+`@tcp(`+os.Getenv("MYSQL_HOST")+`:`+os.Getenv("MYSQL_PORT")+`)/`)
 	defer db.Close()
