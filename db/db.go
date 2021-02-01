@@ -10,7 +10,10 @@ import (
 
 // CreateDBIfNotExists Creates DB If Not Exists
 func CreateDBIfNotExists() {
-	db, err := sql.Open("mysql", os.Getenv("MYSQL_USER")+`:`+os.Getenv("MYSQL_PASS")+`@tcp(`+os.Getenv("MYSQL_HOST")+`:`+os.Getenv("MYSQL_PORT")+`)/`)
+	// with password
+	// db, err := sql.Open("mysql", os.Getenv("MYSQL_USER")+`:`+os.Getenv("MYSQL_PASS")+`@tcp(`+os.Getenv("MYSQL_HOST")+`:`+os.Getenv("MYSQL_PORT")+`)/`)
+	// without password
+	db, err := sql.Open("mysql", os.Getenv("MYSQL_USER")+`:`+`@tcp(`+os.Getenv("MYSQL_HOST")+`:`+os.Getenv("MYSQL_PORT")+`)/`)
 	defer db.Close()
 
 	if err != nil {
@@ -20,7 +23,7 @@ func CreateDBIfNotExists() {
 	if err != nil {
 		panic(err)
 	}
-	Connect()
+
 	createUsersTable()
 	createTweetsTable()
 
@@ -28,7 +31,10 @@ func CreateDBIfNotExists() {
 
 // Connect to database
 func Connect() *sql.DB {
-	db, err := sql.Open("mysql", os.Getenv("MYSQL_USER")+`:`+os.Getenv("MYSQL_PASS")+`@tcp(`+os.Getenv("MYSQL_HOST")+`:`+os.Getenv("MYSQL_PORT")+`)/spell`)
+	// with password
+	// db, err := sql.Open("mysql", os.Getenv("MYSQL_USER")+`:`+os.Getenv("MYSQL_PASS")+`@tcp(`+os.Getenv("MYSQL_HOST")+`:`+os.Getenv("MYSQL_PORT")+`)/spell`)
+	// without password
+	db, err := sql.Open("mysql", os.Getenv("MYSQL_USER")+`:`+`@tcp(`+os.Getenv("MYSQL_HOST")+`:`+os.Getenv("MYSQL_PORT")+`)/spell`)
 	if err != nil {
 		panic(err)
 	}
